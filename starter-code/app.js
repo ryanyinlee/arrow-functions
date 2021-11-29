@@ -171,11 +171,11 @@ let message = (name) => `Hello, ${name}!`;
 console.log(message('Allie'));
 
 // Old Way:
-let Student = function(name, age, hometown) {
-  this.name = name;
-  this.age = age;
-  this.hometown = hometown;
-};
+// let Student = function(name, age, hometown) {
+//   this.name = name;
+//   this.age = age;
+//   this.hometown = hometown;
+// };
 
 // New Way? I thought you couldn't use these as constructors.
 
@@ -186,7 +186,21 @@ let Student = function(name, age, hometown) {
 // });
 
 
+function Student(name, age, hometown){
+  this.name = name;
+  this.age = age;
+  this.hometown = hometown;
+}
+
+Student.prototype.toString = function(){
+  return () => `${this.name}, ${this.age}, ${this.hometown}`;
+}
+
+
+
 let joe = new Student('Joe', 'Schmoe', 100);
+
+
 
 // TODO: Uncomment the following line of code to see the output in the browser console
 // Note that the arrow function will cause this code to break!
@@ -205,14 +219,18 @@ console.log(joe.greeting());
 // TODO: After viewing the previous console.log(), return the code to a working state.
 
 
+// Old Way:
+// Student.courseName = function() {
+//   return 'This student is enrolled in Code 301.';
+// };
 
-Student.courseName = function() {
-  return 'This student is enrolled in Code 301.';
-};
+// New Way: 
+Student.prototype.greeting = () => `Hi, my name is ${this.name}`;
 
 // TODO: Uncomment the following line of code to see the output in the browser console
 // console.log(Student.courseName());
 
+console.log(Student.prototype.greeting());
 
 
 // STEP 11
@@ -222,17 +240,17 @@ Student.prototype.scope = function() {
 };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(joe.scope());
+console.log(joe.scope());
 
 Student.prototype.scopeArrow = () => console.log(this);
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(joe.scopeArrow());
+console.log(joe.scopeArrow());
 
 // TODO: Write a COMMENT below to answer the following questions.
 // 1. What is "this" when joe.scope() is invoked?
-//
+// Undefined
 // 2. What is "this" when joe.scopeArrow() is invoked?
-//
+// Undefined
 // 3. Explain why "this" is different when an arrow function is used.
-//
+// Arrow functions get their this from a parent scope.
